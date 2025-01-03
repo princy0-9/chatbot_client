@@ -32,8 +32,24 @@
     gap: 5px;
 }
 
+ .card2 {
+    width: 200px;
+    height: 60px;
+    background: #323232;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 5px;
+}
 .brief .card p {
     color: #fff;
+}
+.card2 p {
+    color: #fff;
+    font-size: 18px;
 }
 
 .tableContainer {

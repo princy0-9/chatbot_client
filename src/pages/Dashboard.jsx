@@ -87,7 +87,7 @@ function Dashboard() {
             <div className={styles.navbar}>
                 <div className={`${styles.dropdown} ${isDropdownOpen ? styles.show : ''}`}>
                     <button className={styles.dropdownBtn} onClick={() => setDropdownOpen(!isDropdownOpen)}>
-                        <span>{userData.name ? `${userData.name}'s workspace` : "workspace"}</span>
+                        <span>{userData.username ? `${userData.username}'s workspace` : "workspace"}</span>
                         <img className={styles.arrowDown} src="/icons/arrow-angle-down.png" alt="arrow-down icon" />
                     </button>
                     <div className={styles.dropdownContent}>
@@ -97,7 +97,7 @@ function Dashboard() {
                 </div>
                 <Themes />
                 <div onClick={() => setShowPopup(true)}>
-            <button>Share</button>
+            <button className={styles.sharedbutton}>Share</button>
           </div>
           {showPopup && <ShareDashBorad onClose={() => setShowPopup(false)} />}
             </div>

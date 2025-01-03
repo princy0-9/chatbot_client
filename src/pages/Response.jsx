@@ -4,6 +4,7 @@ import useAuth from '../hooks/useAuth';
 import { fetchFormByIdApi } from "../apis/Form";
 import Navbar from '../components/Navbar';
 import styles from '../assets/Response.module.css';
+import { PieChart, Pie, Cell, Tooltip, Label } from 'recharts';
 
 function Response() {
     const token = useAuth();
@@ -18,6 +19,18 @@ function Response() {
 
     const { formHits, formSequence, formResponse } = formData;
     const headers = formSequence.filter((data) => data.key.includes("user")).map(item => item.key);
+
+    const completedPercentage = Math.round(
+        (formCompletion / formHits) * 100,
+    );
+
+    const data = [
+        { name: 'Completed', value: completedPercentage },
+        { name: 'Remaining', value: 100 - completedPercentage },
+    ];
+
+    const COLORS = ['#4285f4', '#90a4ae'];
+
 
     const getFromStats = () => {
         let starts = 0, completes = 0;
@@ -64,10 +77,6 @@ function Response() {
                         <p>Starts</p>
                         <p>{formStarts}</p>
                     </div>
-                    <div className={styles.card}>
-                        <p>Completion rate</p>
-                        <p>{formHits ? parseInt(formCompletion / formHits * 100) : 0} %</p>
-                    </div>
                 </div>
                 <div className={styles.tableContainer}>
                     {formResponse.length > 0 && (
@@ -94,6 +103,39 @@ function Response() {
                             </tbody>
                         </table>
                     )}
+                </div>
+
+                <div style={{ width: "500px", height: "500px", margin: "auto", display: 'flex' }}>
+
+                    <PieChart width={400} height={200}>
+                        <Pie
+                            data={data}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={60}
+                            outerRadius={80}
+                            fill="#8884d8"
+                            dataKey="value"
+                        >
+                            {data.map((entry, index) => (
+                                <>
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    {entry.name === 'Completed' && (
+                                        <Label
+                                            value={`${entry.value}%`}
+                                            position="outside"
+                                            fill="#fff" /* White label color */
+                                        />
+                                    )}
+                                </>
+                            ))}
+                        </Pie>
+                        <Tooltip />
+                    </PieChart>
+                    <div className={styles.card2}>
+                        <p>Completion rate</p>
+                        <p>{formHits ? parseInt(formCompletion / formHits * 100) : 0} %</p>
+                    </div>
                 </div>
             </section>
         </div>

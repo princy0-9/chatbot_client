@@ -163,3 +163,19 @@
     border-left: 1px solid var(--border-color);
     height: 25px;
 }
+
+.sharedbutton {
+    height: 100%;
+    padding: 8px 13px;
+    color: white;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-weight: normal;
+    background-color: rgba(26, 95, 255, 1);
+    border-radius: 4px;
+    position: relative;
+    left: 200px;
+    display: flex;
+    align-items: center;
+  }
